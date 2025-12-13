@@ -1,10 +1,10 @@
 import streamlit as st
 import requests
 import json
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 import os
 
-load_dotenv("env.txt")
+#load_dotenv("env.txt")
 FLOWISE_API_URL = os.getenv("FLOWISE_API_URL")
 #FLOWISE_API_KEY = os.getenv("FLOWISE_API_KEY")
 
