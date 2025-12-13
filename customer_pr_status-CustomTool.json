@@ -1,0 +1,9 @@
+{
+  "name": "customer_pr_status",
+  "description": "This function is to search for the customer's PR status based on the customer's ID or name.\n-Input ID and customer name\n-Output customer's PR status",
+  "color": "linear-gradient(rgb(246,104,173), rgb(186,188,7))",
+  "iconSrc": "",
+  "schema": "[{\"id\":0,\"property\":\"custID\",\"description\":\"custID\",\"type\":\"string\",\"required\":true},{\"id\":1,\"property\":\"custname\",\"description\":\"customername\",\"type\":\"string\",\"required\":true}]",
+  "func": "try {\n\n  const customers = {\n    \"2222\": { \n      name: \"matt\", \n      email: \"matt@yahoo.com\", \n      prStatus: true\n    },\n    \"4444\": { \n      name: \"andy\", \n      email: \"andy@gmail.com\", \n      prStatus: false\n    }\n  };\n\n  custID = $custID.toString();\n  custname = $custname.toLowerCase();\n\n  const record = customers[custID];\n\n  // ID not found\n  if (!record) {\n    return { \n      pr_status: null\n    };\n  }\n\n  // Match name\n  if (record.name === custname) {\n    return { \n      pr_status: record.prStatus\n    };\n  }\n\n  // Name does not match\n  return { \n    pr_status: null\n  };\n\n} catch (error) {\n  return { \n    pr_status: null,\n    error: error.message \n  };\n}",
+  "workspaceId": "7503fae3-b27c-4b40-bdb2-24e0af4bbc3f"
+}
