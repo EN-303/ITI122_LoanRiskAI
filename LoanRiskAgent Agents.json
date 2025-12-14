@@ -3144,7 +3144,7 @@
           "agentMessages": [
             {
               "role": "system",
-              "content": "<p>You are AgentCustInfo. Your task is to retrieve a customer's information by calling the custom tools.</p><p>You MUST call these tools:</p><p>1. CreditScoreTool – returns credit_score</p><p>2. AccountStatusTool – returns account_status and nationality</p><p>After receiving all tool results:</p><p>- Combine id and name from user input</p><p>- Combine credit score, account status, nationality</p><p>- Return in JSON:</p><p>{</p><p>\"id\": \"&lt;id&gt;\",</p><p>\"name\": \"&lt;name&gt;\",</p><p>\"email\": \"&lt;email&gt;\",</p><p>\"credit_score\": \"&lt;credit_score&gt;\",</p><p>\"account_status\": \"&lt;account_status&gt;\",</p><p>\"nationality\": \"&lt;nationality&gt;\"</p><p>}</p><p>Do NOT assume or hallucinate values.</p><p>Do NOT generate explanations.</p><p>Only return JSON.</p>"
+              "content": "<p>You are AgentCustInfo. Your task is to retrieve a customer's information by calling the custom tools.</p><p>You MUST call these tools:</p><p>1. CreditScoreTool – returns credit_score</p><p>2. AccountStatusTool – returns account_status and nationality</p><p>After receiving all tool results:</p><p>- Combine id and name from user input</p><p>- Combine credit score, account status, nationality</p><p>- Return in JSON:</p><p>{</p><p>\"customer information\": {\"&lt;id&gt;\", \"&lt;name&gt;\", \"&lt;email&gt;\" }</p><p>\"credit score\": &lt;credit_score&gt;,</p><p>\"account status\": \"&lt;account_status&gt;\",</p><p>\"nationality\": \"&lt;nationality&gt;\"</p><p>}</p><p>Do NOT assume or hallucinate values.</p><p>Do NOT generate explanations.</p><p>Only return JSON.</p>"
             }
           ],
           "agentTools": [
@@ -3152,7 +3152,7 @@
               "agentSelectedTool": "customTool",
               "agentSelectedToolRequiresHumanInput": "",
               "agentSelectedToolConfig": {
-                "selectedTool": "296fd26b-f8f5-4d56-987a-790d11110a7a",
+                "selectedTool": "3b47e7c7-05b3-4b34-9811-dab28649fa26",
                 "returnDirect": "",
                 "customToolName": "",
                 "customToolDesc": "",
@@ -3165,7 +3165,7 @@
               "agentSelectedTool": "customTool",
               "agentSelectedToolRequiresHumanInput": "",
               "agentSelectedToolConfig": {
-                "selectedTool": "966b098c-c14d-4956-96ca-6b50686250f8",
+                "selectedTool": "b96af983-ae15-4395-a12e-6b2661f41592",
                 "returnDirect": "",
                 "customToolName": "",
                 "customToolDesc": "",
@@ -3179,7 +3179,7 @@
           "agentKnowledgeVSEmbeddings": "",
           "agentEnableMemory": true,
           "agentMemoryType": "allMessages",
-          "agentUserMessage": "<p>{</p><p>\"id\": \"&lt;id&gt;\",</p><p>\"name\": \"&lt;name&gt;\",</p><p>\"email\": \"&lt;email&gt;\",</p><p>\"credit_score\": \"&lt;credit_score&gt;\",</p><p>\"account_status\": \"&lt;account_status&gt;\",</p><p>\"nationality\": \"&lt;nationality&gt;\"</p><p>}</p>",
+          "agentUserMessage": "<p>{</p><p>\"customer information\": {\"&lt;id&gt;\", \"&lt;name&gt;\", \"&lt;email&gt;\" }</p><p>\"credit score\": &lt;credit_score&gt;,</p><p>\"account status\": \"&lt;account_status&gt;\",</p><p>\"nationality\": \"&lt;nationality&gt;\"</p><p>}</p>",
           "agentReturnResponseAs": "assistantMessage",
           "agentStructuredOutput": [],
           "agentUpdateState": [],
@@ -3669,7 +3669,7 @@
           "agentMessages": [
             {
               "role": "system",
-              "content": "<p>You are AgentInfo.</p><p>Your task is to provide general information on the risk policy and interest rate.</p><p>You have access to the DOCUMENT STORE containing:</p><p>- Risk evaluation rules</p><p>- Interest rate</p><p>2. Ask the document store:</p><p>- “Given credit score X and account status Y, what is the overall risk?”</p><p>-\"What are the different levels of risk?\"</p><p>-\"What are the different interest rates corresponding to the risk level?\"</p><p>3. Then query again:</p><p>- “Given risk level R, what is the recommended interest rate?”</p><p>4. Do NOT alter or invent risk or interest rate values.</p><p>5. Do NOT include explanations</p><p>6. Return in text only</p><p>If document store cannot determine risk, return null for risk and interest.</p>"
+              "content": "<p>You are AgentInfo.</p><p>Your task is to provide general information on the risk policy and interest rate.</p><p>You have access to the DOCUMENT STORE containing:</p><p>- Risk evaluation rules</p><p>- Interest rate</p><p>2. Ask the document store:</p><p>- “Given credit score X and account status Y, what is the overall risk?”</p><p>-\"What are the different levels of risk?\"</p><p>-\"What are the different interest rates corresponding to the risk level?\"</p><p>3. Then query again:</p><p>- “Given risk level R, what is the recommended interest rate?”</p><p>4. Do NOT assume or hallucinate values.</p><p>5. Do NOT alter or invent risk or interest rate values.</p><p>6. Do NOT include explanations</p><p>7. Return in text only</p><p></p>"
             }
           ],
           "agentTools": [],
@@ -3689,7 +3689,7 @@
           "agentEnableMemory": true,
           "agentMemoryType": "allMessages",
           "agentUserMessage": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"question\" data-label=\"question\">{{ question }}</span> </p>",
-          "agentReturnResponseAs": "assistantMessage",
+          "agentReturnResponseAs": "userMessage",
           "agentStructuredOutput": "",
           "agentUpdateState": "",
           "agentModelConfig": {
