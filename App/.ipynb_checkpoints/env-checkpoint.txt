@@ -1,0 +1,1 @@
+FLOWISE_API_URL = https://cloud.flowiseai.com/api/v1/prediction/0be70486-91ca-4e39-b46e-856dd5549bed
