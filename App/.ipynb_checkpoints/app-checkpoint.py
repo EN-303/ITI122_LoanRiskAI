@@ -33,25 +33,55 @@ def build_flowise_history(messages):
     return history
 
 def format_loan_response(data: dict) -> str:
-    customer = data.get("customer information", {})
+    sections = ["### 🧾 Loan Risk Assessment Report\n"]
 
-    return f"""### 🧾 Loan Risk Assessment Report
+    # --- Customer Information ---
+    customer = data.get("customer information")
+    if isinstance(customer, dict):
+        sections.append(
+            f"""**Customer ID:** {customer.get("id", "N/A")}  
+**Name:** {customer.get("name", "N/A")}  
+**Email:** {customer.get("email", "N/A")}  
+"""
+        )
 
-**Customer ID:** {customer.get("id", "N/A")}
-**Name:** {customer.get("name", "N/A")}
-**Email:** {customer.get("email", "N/A")}
+    # --- Credit / Status Block ---
+    credit_fields = [
+        ("Credit Score", "credit score"),
+        ("Account Status", "account status"),
+        ("Nationality", "nationality"),
+        ("PR Status", "pr status"),
+    ]
 
-**Credit Score:** {data.get("credit score", "N/A")}  
-**Account Status:** {data.get("account status", "N/A")}  
-**Nationality:** {data.get("nationality", "N/A")}  
-**PR Status:** {data.get("pr status", "N/A")}  
+    credit_lines = []
+    for label, key in credit_fields:
+        if key in data:
+            credit_lines.append(f"**{label}:** {data.get(key, 'N/A')}  ")
 
-### ⚠️ Overall Risk: **{data.get("overall risk", "N/A")}**
-### 💰 Interest Rate: **{data.get("interest rate", "N/A")}**
+    if credit_lines:
+        sections.append("\n".join(credit_lines) + "\n")
 
-### Recommendation: 
+    # --- Risk Summary ---
+    if "overall risk" in data:
+        sections.append(
+            f"### ⚠️ Overall Risk: **{data.get('overall risk', 'N/A')}**\n"
+        )
+
+    if "interest rate" in data:
+        sections.append(
+            f"### 💰 Interest Rate: **{data.get('interest rate', 'N/A')}**\n"
+        )
+
+    # --- Recommendation ---
+    if "recommendation" in data:
+        sections.append(
+            f"""### 📝 Recommendation  
 **{data.get("recommendation", "N/A")}**
 """
+        )
+
+    return "\n".join(sections)
+
 
 # --- Initialize chat history ---
 if "messages" not in st.session_state:
