@@ -84,10 +84,11 @@ if user_input:
             st.write(response.text)
             st.stop()
 
-        data = response.json()
-
-    # Format structured JSON to text
-    result_text = format_loan_response(data)
+        try:
+            data = response.json()
+            result_text = format_loan_response(data)
+        except ValueError:
+            result_text = response.text
 
     # Save & display assistant message
     st.session_state.messages.append(
