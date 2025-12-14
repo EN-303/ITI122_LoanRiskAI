@@ -45,7 +45,6 @@ def format_loan_response(data: dict) -> str:
 """
         )
 
-    
     # --- Credit / Status Block ---
     credit_fields = [
         ("Credit Score", "credit score"),
