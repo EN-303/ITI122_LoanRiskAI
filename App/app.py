@@ -62,9 +62,8 @@ def format_loan_response(data: dict) -> str:
         sections.append("\n".join(credit_lines) + "\n")
 
     # --- Risk Summary ---
-    sections.append("### 🧾 Loan Risk Assessment Report\n")
-    
     if "overall risk" in data:
+        sections.append("### 🧾 Loan Risk Assessment Report\n")
         sections.append(
             f"### ⚠️ Overall Risk: **{data.get('overall risk', 'N/A')}**\n"
         )
