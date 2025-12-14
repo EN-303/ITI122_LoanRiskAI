@@ -41,10 +41,10 @@ def format_loan_response(data: dict) -> str:
 **Name:** {customer.get("name", "N/A")}
 **Email:** {customer.get("email", "N/A")}
 
-**Credit Score:** {data.get("credit score", "N/A")}
-**Account Status:** {data.get("account status", "N/A")}
-**Nationality:** {data.get("nationality", "N/A")}
-**PR Status:** {data.get("pr status", "N/A")}
+**Credit Score:** {data.get("credit score", "N/A")}  
+**Account Status:** {data.get("account status", "N/A")}  
+**Nationality:** {data.get("nationality", "N/A")}  
+**PR Status:** {data.get("pr status", "N/A")}  
 
 ### ⚠️ Overall Risk: **{data.get("overall risk", "N/A")}**
 ### 💰 Interest Rate: **{data.get("interest rate", "N/A")}**
