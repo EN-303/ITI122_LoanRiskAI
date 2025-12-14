@@ -89,7 +89,7 @@ if "messages" not in st.session_state:
     st.session_state.messages = [
         {
             "role": "assistant",
-            "content": "Hi, I am G, Loan risk assessment assistant. How can I help you today?"
+            "content": "Hi, I am Bot, Loan risk assessment assistant. How can I help you today?"
         }
     ]
 
