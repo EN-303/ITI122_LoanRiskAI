@@ -18,28 +18,41 @@ if not FLOWISE_API_URL:
     
 print(FLOWISE_API_URL)
 
+def build_flowise_history(messages):
+    history = []
+    for m in messages:
+        if m["role"] == "user":
+            history.append({
+                "role": "userMessage",
+                "content": m["content"]
+            })
+        elif m["role"] == "assistant":
+            history.append({
+                "role": "apiMessage",
+                "content": m["content"]
+            })
+    return history
+
 def format_loan_response(data: dict) -> str:
     customer = data.get("customer information", {})
-    
-    lines = [
-        "Loan Risk Assessment Result",
-        "",
-        f"**Customer ID:** {customer.get('id', 'N/A')}",
-        f"**Name:** {customer.get('name', 'N/A')}",
-        f"**Email:** {customer.get('email', 'N/A').strip()}",
-        "",
-        # f"**Credit Score:** {data.get('credit score', 'N/A')}",
-        # f"**Account Status:** {data.get('account status', 'N/A')}",
-        # f"**Nationality:** {data.get('nationality', 'N/A')}",
-        # f"**PR Status:** {data.get('pr status', 'N/A')}",
-        # "",
-        # f"**Overall Risk:** {data.get('overall risk', 'N/A')}",
-        # f"**Interest Rate:** {data.get('interest rate', 'N/A')}",
-        # "",
-        # f"**Recommendation:** {data.get('recommendation', 'N/A')}",
-    ]
 
-    return "\n".join(lines)
+    return f"""### 🧾 Loan Risk Assessment Report
+
+**Customer ID:** {customer.get("id", "N/A")}
+**Name:** {customer.get("name", "N/A")}
+**Email:** {customer.get("email", "N/A")}
+
+**Credit Score:** {data.get("credit score", "N/A")}
+**Account Status:** {data.get("account status", "N/A")}
+**Nationality:** {data.get("nationality", "N/A")}
+**PR Status:** {data.get("pr status", "N/A")}
+
+### ⚠️ Overall Risk: **{data.get("overall risk", "N/A")}**
+### 💰 Interest Rate: **{data.get("interest rate", "N/A")}**
+
+### Recommendation: 
+**{data.get("recommendation", "N/A")}**
+"""
 
 # --- Initialize chat history ---
 if "messages" not in st.session_state:
@@ -59,47 +72,66 @@ for msg in st.session_state.messages:
 user_input = st.chat_input("Type your question here...")
 
 if user_input:
-    # Show user message in UI
     st.session_state.messages.append(
         {"role": "user", "content": user_input}
     )
     st.chat_message("user").write(user_input)
 
-    # Prepare Flowise payload
     payload = {
         "question": user_input,
-        "history": [
-            [m["role"], m["content"]]
-            for m in st.session_state.messages[:-1] 
-        ]
+        "history": build_flowise_history(
+            st.session_state.messages[:-1]
+        )
     }
 
-    print(payload)
-
-    # Call Flowise ONLY when user inputs
+    # st.json(payload) #debug
+    
     with st.spinner("Analyzing loan risk..."):
-        response = requests.post(FLOWISE_API_URL, json=payload)
+        response = requests.post(
+            FLOWISE_API_URL,
+            json=payload,
+            timeout=30
+        )
 
         if response.status_code != 200:
             st.error("Flowise API error")
-            st.write(response.text)
+            st.code(response.text)
             st.stop()
 
-        print("ok 1")
-        
         try:
             data = response.json()
-            print(data["text"])
-            result_text = format_loan_response(data)
         except ValueError:
             result_text = response.text
+        else:
+            st.code(data)
 
-    # Save & display assistant message
+             # Structured loan JSON
+            if isinstance(data, dict) and "text" in data:
+                raw_text = data["text"]
+            
+                # Try to parse text as JSON
+                try:
+                    parsed = json.loads(raw_text)
+                    if "customer information" in parsed:
+                        result_text = format_loan_response(parsed)
+                    else:
+                        result_text = raw_text
+                except json.JSONDecodeError:
+                    result_text = raw_text
+            
+            elif isinstance(data, dict):
+                result_text = format_loan_response(data)
+            
+            else:
+                result_text = str(data)
+
+
     st.session_state.messages.append(
         {"role": "assistant", "content": result_text}
     )
     st.chat_message("assistant").markdown(result_text)
     st.stop()
+
 
     # # Call Flowise
     # with st.spinner("Analyzing loan risk..."):
