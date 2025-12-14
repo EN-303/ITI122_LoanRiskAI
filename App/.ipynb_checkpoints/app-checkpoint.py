@@ -94,6 +94,7 @@ if user_input:
         {"role": "assistant", "content": result_text}
     )
     st.chat_message("assistant").markdown(result_text)
+    st.stop()
 
     # # Call Flowise
     # with st.spinner("Analyzing loan risk..."):
