@@ -9,7 +9,8 @@ st.set_page_config(
 )
 
 #streamlit cloud
-FLOWISE_API_URL = os.getenv("FLOWISE_API_URL")
+# FLOWISE_API_URL = os.getenv("FLOWISE_API_URL")
+FLOWISE_API_URL = "https://cloud.flowiseai.com/api/v1/prediction/0be70486-91ca-4e39-b46e-856dd5549bed"
 
 if not FLOWISE_API_URL:
     st.error("FLOWISE_API_URL is not set")
@@ -27,15 +28,15 @@ def format_loan_response(data: dict) -> str:
         f"**Name:** {customer.get('name', 'N/A')}",
         f"**Email:** {customer.get('email', 'N/A').strip()}",
         "",
-        f"**Credit Score:** {data.get('credit score', 'N/A')}",
-        f"**Account Status:** {data.get('account status', 'N/A')}",
-        f"**Nationality:** {data.get('nationality', 'N/A')}",
-        f"**PR Status:** {data.get('pr status', 'N/A')}",
-        "",
-        f"**Overall Risk:** {data.get('overall risk', 'N/A')}",
-        f"**Interest Rate:** {data.get('interest rate', 'N/A')}",
-        "",
-        f"**Recommendation:** {data.get('recommendation', 'N/A')}",
+        # f"**Credit Score:** {data.get('credit score', 'N/A')}",
+        # f"**Account Status:** {data.get('account status', 'N/A')}",
+        # f"**Nationality:** {data.get('nationality', 'N/A')}",
+        # f"**PR Status:** {data.get('pr status', 'N/A')}",
+        # "",
+        # f"**Overall Risk:** {data.get('overall risk', 'N/A')}",
+        # f"**Interest Rate:** {data.get('interest rate', 'N/A')}",
+        # "",
+        # f"**Recommendation:** {data.get('recommendation', 'N/A')}",
     ]
 
     return "\n".join(lines)
@@ -84,8 +85,11 @@ if user_input:
             st.write(response.text)
             st.stop()
 
+        print("ok 1")
+        
         try:
             data = response.json()
+            print(data["text"])
             result_text = format_loan_response(data)
         except ValueError:
             result_text = response.text
