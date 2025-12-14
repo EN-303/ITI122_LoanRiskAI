@@ -33,13 +33,13 @@ def build_flowise_history(messages):
     return history
 
 def format_loan_response(data: dict) -> str:
-    sections = ["### 🧾 Loan Risk Assessment Report\n"]
+    sections = ["### Customer Information:\n"]
 
     # --- Customer Information ---
     customer = data.get("customer information")
     if isinstance(customer, dict):
         sections.append(
-            f"""**Customer ID:** {customer.get("id", "N/A")}  
+            f"""**ID:** {customer.get("id", "N/A")}  
 **Name:** {customer.get("name", "N/A")}  
 **Email:** {customer.get("email", "N/A")}  
 """
@@ -62,6 +62,8 @@ def format_loan_response(data: dict) -> str:
         sections.append("\n".join(credit_lines) + "\n")
 
     # --- Risk Summary ---
+    sections.append("### 🧾 Loan Risk Assessment Report\n")
+    
     if "overall risk" in data:
         sections.append(
             f"### ⚠️ Overall Risk: **{data.get('overall risk', 'N/A')}**\n"
