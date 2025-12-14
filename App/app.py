@@ -9,8 +9,7 @@ st.set_page_config(
 )
 
 #streamlit cloud
-# FLOWISE_API_URL = os.getenv("FLOWISE_API_URL")
-FLOWISE_API_URL = "https://cloud.flowiseai.com/api/v1/prediction/0be70486-91ca-4e39-b46e-856dd5549bed"
+FLOWISE_API_URL = os.getenv("FLOWISE_API_URL")
 
 if not FLOWISE_API_URL:
     st.error("FLOWISE_API_URL is not set")
@@ -103,7 +102,7 @@ if user_input:
         except ValueError:
             result_text = response.text
         else:
-            st.code(data)
+            # st.code(data) #debug
 
              # Structured loan JSON
             if isinstance(data, dict) and "text" in data:
@@ -131,31 +130,3 @@ if user_input:
     )
     st.chat_message("assistant").markdown(result_text)
     st.stop()
-
-
-    # # Call Flowise
-    # with st.spinner("Analyzing loan risk..."):
-    #     response = requests.post(FLOWISE_API_URL, json=payload)
-    #     result = response.json().get("text", "Sorry, something went wrong.")
-
-    # # Add assistant response
-    # st.session_state.messages.append(
-    #     {"role": "assistant", "content": result}
-    # )
-    # st.chat_message("assistant").write(result)
-
-# user_input = st.text_input("Ask something:")
-
-# if st.button("Send") and user_input:
-#     payload = {
-#         "question": user_input
-#     }
-
-#     response = requests.post(FLOWISE_API_URL, json=payload)
-
-#     if response.status_code == 200:
-#         result = response.json()
-#         st.markdown("### Agent Response")
-#         st.write(result["text"])
-#     else:
-#         st.error("Failed to get response from Flowise")
