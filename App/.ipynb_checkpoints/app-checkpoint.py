@@ -4,7 +4,7 @@ import json
 import os
 
 st.set_page_config(
-    page_title="Loan Risk Assessment",
+    page_title="Loan Risk Assessment 1",
     page_icon="💼"
 )
 
