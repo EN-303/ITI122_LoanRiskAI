@@ -4,7 +4,7 @@ import json
 import os
 
 st.set_page_config(
-    page_title="Loan Risk Assessment 1",
+    page_title="Loan Risk Assessment 2",
     page_icon="💼"
 )
 
@@ -157,7 +157,6 @@ if user_input:
                 try:
                     parsed = json.loads(raw_text)
                     if "customer information" in parsed:
-                        st.code(data) #debug
                         result_text = format_loan_response(parsed)
                     else:
                         result_text = raw_text
@@ -165,6 +164,7 @@ if user_input:
                     result_text = raw_text
             
             elif isinstance(data, dict):
+                st.code(data) #debug
                 result_text = format_loan_response(data)
             
             else:
