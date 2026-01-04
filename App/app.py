@@ -159,7 +159,12 @@ if user_input:
 
              # Structured loan JSON
             if isinstance(data, dict) and "text" in data:
-                raw_text = data["text"]
+                raw_text1 = data["text"]
+
+                raw_text = raw_text1.strip()
+
+                if raw_text.startswith("```"):
+                    raw_text = raw_text.split("```")[1]
                 
                 if DEBUG:
                     st.write("### Debug: raw_text")
