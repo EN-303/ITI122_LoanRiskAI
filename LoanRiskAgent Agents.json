@@ -4,8 +4,8 @@
       "id": "startAgentflow_0",
       "type": "agentFlow",
       "position": {
-        "x": -1019.4476689621914,
-        "y": 51.874354558432145
+        "x": -841.8441055501314,
+        "y": 27.734064385919112
       },
       "data": {
         "id": "startAgentflow_0",
@@ -174,25 +174,14 @@
         "inputAnchors": [],
         "inputs": {
           "startInputType": "chatInput",
-          "formTitle": "",
-          "formDescription": "",
-          "formInputTypes": "",
-          "startEphemeralMemory": "",
+          "startEphemeralMemory": true,
           "startState": [
             {
-              "key": "missing_info",
-              "value": ""
-            },
-            {
-              "key": "id",
-              "value": ""
-            },
-            {
-              "key": "name",
-              "value": ""
-            },
-            {
               "key": "option",
+              "value": ""
+            },
+            {
+              "key": "missing_info",
               "value": ""
             }
           ],
@@ -212,8 +201,8 @@
       "height": 66,
       "selected": false,
       "positionAbsolute": {
-        "x": -1019.4476689621914,
-        "y": 51.874354558432145
+        "x": -841.8441055501314,
+        "y": 27.734064385919112
       },
       "dragging": false
     },
@@ -669,11 +658,11 @@
         ],
         "inputAnchors": [],
         "inputs": {
-          "agentModel": "groqChat",
+          "agentModel": "chatMistralAI",
           "agentMessages": [
             {
               "role": "system",
-              "content": "<p>You collect customer identification details.</p><p>Your task:</p><p>- Ask the user to provide a customer ID and customer name.</p><p>- Extract the ID and name only if they are explicitly provided.</p><p>- Do NOT guess or infer missing values.</p><p>Rules:</p><p>- Customer ID may be numeric or string (e.g. \"1111\").</p><p>- Customer name must be the person's name.</p><p>- If either ID or name is missing, set missing_info to true.</p><p>- If both are present, set missing_info to false.</p><p>- Return JSON only.</p><p>- Do not include explanations or extra text.</p><p>Output format:</p><p>{</p><p>  \"id\": \"string or empty string\",</p><p>  \"name\": \"string or empty string\",</p><p>  \"missing_info\": true or false</p><p>}</p><p></p>"
+              "content": "<p>You collect customer identification details from user input.</p><p>Your task:</p><p>- Extract the customer ID and name <strong>after the \"-\"</strong> in the input.</p><p>- Only extract values if they are explicitly provided.</p><p>- Do NOT guess or infer missing values.</p><p>Rules:</p><p>- Customer ID may be numeric or string (e.g. \"1111\").</p><p>- Customer name must be the person's actual name.</p><p>- If either ID or name is missing, set \"missing_info\" to true.</p><p>- If both ID and name are present, set \"missing_info\" to false.</p><p>Output requirements:</p><p>- Return <strong>valid JSON only</strong>.</p><p>- Include <strong>all keys</strong> exactly as below, even if values are empty strings.</p><p>- Do not include explanations, text, or comments outside the JSON.</p><p>Output format:</p><p>{</p><p>  \"missing_info\": true or false,</p><p>  \"id\": \"string or empty string\",</p><p>  \"name\": \"string or empty string\"</p><p>}</p><p></p>"
             }
           ],
           "agentTools": "",
@@ -681,23 +670,9 @@
           "agentKnowledgeVSEmbeddings": "",
           "agentEnableMemory": true,
           "agentMemoryType": "allMessages",
-          "agentUserMessage": "",
-          "agentReturnResponseAs": "userMessage",
+          "agentUserMessage": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"input\" data-label=\"input\">{{ input }}</span></p>",
+          "agentReturnResponseAs": "assistantMessage",
           "agentStructuredOutput": [
-            {
-              "key": "id",
-              "type": "string",
-              "enumValues": "",
-              "jsonSchema": "",
-              "description": "customer id"
-            },
-            {
-              "key": "name",
-              "type": "string",
-              "enumValues": "",
-              "jsonSchema": "",
-              "description": "customer name"
-            },
             {
               "key": "missing_info",
               "type": "boolean",
@@ -708,25 +683,21 @@
           ],
           "agentUpdateState": [
             {
-              "key": "id",
-              "value": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"output.id\" data-label=\"output.id\">{{ output.id }}</span> </p>"
-            },
-            {
-              "key": "name",
-              "value": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"output.name\" data-label=\"output.name\">{{ output.name }}</span> </p>"
-            },
-            {
               "key": "missing_info",
               "value": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"output.missing_info\" data-label=\"output.missing_info\">{{ output.missing_info }}</span> </p>"
             }
           ],
           "agentModelConfig": {
-            "cache": "",
-            "modelName": "openai/gpt-oss-20b",
+            "credential": "",
+            "modelName": "mistral-small",
             "temperature": "0.1",
-            "maxTokens": "",
             "streaming": true,
-            "agentModel": "groqChat"
+            "maxOutputTokens": "",
+            "topP": "",
+            "randomSeed": "",
+            "safeMode": "",
+            "overrideEndpoint": "",
+            "agentModel": "chatMistralAI"
           },
           "undefined": ""
         },
@@ -741,7 +712,7 @@
         "selected": false
       },
       "type": "agentFlow",
-      "width": 218,
+      "width": 209,
       "height": 72,
       "selected": false,
       "dragging": false,
@@ -2317,327 +2288,10 @@
       }
     },
     {
-      "id": "llmAgentflow_0",
-      "position": {
-        "x": -875.4587247645244,
-        "y": 44.717918493542754
-      },
-      "data": {
-        "id": "llmAgentflow_0",
-        "label": "LLM - Options",
-        "version": 1.1,
-        "name": "llmAgentflow",
-        "type": "LLM",
-        "color": "#64B5F6",
-        "baseClasses": [
-          "LLM"
-        ],
-        "category": "Agent Flows",
-        "description": "Large language models to analyze user-provided inputs and generate responses",
-        "inputParams": [
-          {
-            "label": "Model",
-            "name": "llmModel",
-            "type": "asyncOptions",
-            "loadMethod": "listModels",
-            "loadConfig": true,
-            "id": "llmAgentflow_0-input-llmModel-asyncOptions",
-            "display": true
-          },
-          {
-            "label": "Messages",
-            "name": "llmMessages",
-            "type": "array",
-            "optional": true,
-            "acceptVariable": true,
-            "array": [
-              {
-                "label": "Role",
-                "name": "role",
-                "type": "options",
-                "options": [
-                  {
-                    "label": "System",
-                    "name": "system"
-                  },
-                  {
-                    "label": "Assistant",
-                    "name": "assistant"
-                  },
-                  {
-                    "label": "Developer",
-                    "name": "developer"
-                  },
-                  {
-                    "label": "User",
-                    "name": "user"
-                  }
-                ]
-              },
-              {
-                "label": "Content",
-                "name": "content",
-                "type": "string",
-                "acceptVariable": true,
-                "generateInstruction": true,
-                "rows": 4
-              }
-            ],
-            "id": "llmAgentflow_0-input-llmMessages-array",
-            "display": true
-          },
-          {
-            "label": "Enable Memory",
-            "name": "llmEnableMemory",
-            "type": "boolean",
-            "description": "Enable memory for the conversation thread",
-            "default": true,
-            "optional": true,
-            "id": "llmAgentflow_0-input-llmEnableMemory-boolean",
-            "display": true
-          },
-          {
-            "label": "Memory Type",
-            "name": "llmMemoryType",
-            "type": "options",
-            "options": [
-              {
-                "label": "All Messages",
-                "name": "allMessages",
-                "description": "Retrieve all messages from the conversation"
-              },
-              {
-                "label": "Window Size",
-                "name": "windowSize",
-                "description": "Uses a fixed window size to surface the last N messages"
-              },
-              {
-                "label": "Conversation Summary",
-                "name": "conversationSummary",
-                "description": "Summarizes the whole conversation"
-              },
-              {
-                "label": "Conversation Summary Buffer",
-                "name": "conversationSummaryBuffer",
-                "description": "Summarize conversations once token limit is reached. Default to 2000"
-              }
-            ],
-            "optional": true,
-            "default": "allMessages",
-            "show": {
-              "llmEnableMemory": true
-            },
-            "id": "llmAgentflow_0-input-llmMemoryType-options",
-            "display": true
-          },
-          {
-            "label": "Window Size",
-            "name": "llmMemoryWindowSize",
-            "type": "number",
-            "default": "20",
-            "description": "Uses a fixed window size to surface the last N messages",
-            "show": {
-              "llmMemoryType": "windowSize"
-            },
-            "id": "llmAgentflow_0-input-llmMemoryWindowSize-number",
-            "display": false
-          },
-          {
-            "label": "Max Token Limit",
-            "name": "llmMemoryMaxTokenLimit",
-            "type": "number",
-            "default": "2000",
-            "description": "Summarize conversations once token limit is reached. Default to 2000",
-            "show": {
-              "llmMemoryType": "conversationSummaryBuffer"
-            },
-            "id": "llmAgentflow_0-input-llmMemoryMaxTokenLimit-number",
-            "display": false
-          },
-          {
-            "label": "Input Message",
-            "name": "llmUserMessage",
-            "type": "string",
-            "description": "Add an input message as user message at the end of the conversation",
-            "rows": 4,
-            "optional": true,
-            "acceptVariable": true,
-            "show": {
-              "llmEnableMemory": true
-            },
-            "id": "llmAgentflow_0-input-llmUserMessage-string",
-            "display": true
-          },
-          {
-            "label": "Return Response As",
-            "name": "llmReturnResponseAs",
-            "type": "options",
-            "options": [
-              {
-                "label": "User Message",
-                "name": "userMessage"
-              },
-              {
-                "label": "Assistant Message",
-                "name": "assistantMessage"
-              }
-            ],
-            "default": "userMessage",
-            "id": "llmAgentflow_0-input-llmReturnResponseAs-options",
-            "display": true
-          },
-          {
-            "label": "JSON Structured Output",
-            "name": "llmStructuredOutput",
-            "description": "Instruct the LLM to give output in a JSON structured schema",
-            "type": "array",
-            "optional": true,
-            "acceptVariable": true,
-            "array": [
-              {
-                "label": "Key",
-                "name": "key",
-                "type": "string"
-              },
-              {
-                "label": "Type",
-                "name": "type",
-                "type": "options",
-                "options": [
-                  {
-                    "label": "String",
-                    "name": "string"
-                  },
-                  {
-                    "label": "String Array",
-                    "name": "stringArray"
-                  },
-                  {
-                    "label": "Number",
-                    "name": "number"
-                  },
-                  {
-                    "label": "Boolean",
-                    "name": "boolean"
-                  },
-                  {
-                    "label": "Enum",
-                    "name": "enum"
-                  },
-                  {
-                    "label": "JSON Array",
-                    "name": "jsonArray"
-                  }
-                ]
-              },
-              {
-                "label": "Enum Values",
-                "name": "enumValues",
-                "type": "string",
-                "placeholder": "value1, value2, value3",
-                "description": "Enum values. Separated by comma",
-                "optional": true,
-                "show": {
-                  "llmStructuredOutput[$index].type": "enum"
-                }
-              },
-              {
-                "label": "JSON Schema",
-                "name": "jsonSchema",
-                "type": "code",
-                "placeholder": "{\n    \"answer\": {\n        \"type\": \"string\",\n        \"description\": \"Value of the answer\"\n    },\n    \"reason\": {\n        \"type\": \"string\",\n        \"description\": \"Reason for the answer\"\n    },\n    \"optional\": {\n        \"type\": \"boolean\"\n    },\n    \"count\": {\n        \"type\": \"number\"\n    },\n    \"children\": {\n        \"type\": \"array\",\n        \"items\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"value\": {\n                    \"type\": \"string\",\n                    \"description\": \"Value of the children's answer\"\n                }\n            }\n        }\n    }\n}",
-                "description": "JSON schema for the structured output",
-                "optional": true,
-                "hideCodeExecute": true,
-                "show": {
-                  "llmStructuredOutput[$index].type": "jsonArray"
-                }
-              },
-              {
-                "label": "Description",
-                "name": "description",
-                "type": "string",
-                "placeholder": "Description of the key"
-              }
-            ],
-            "id": "llmAgentflow_0-input-llmStructuredOutput-array",
-            "display": true
-          },
-          {
-            "label": "Update Flow State",
-            "name": "llmUpdateState",
-            "description": "Update runtime state during the execution of the workflow",
-            "type": "array",
-            "optional": true,
-            "acceptVariable": true,
-            "array": [
-              {
-                "label": "Key",
-                "name": "key",
-                "type": "asyncOptions",
-                "loadMethod": "listRuntimeStateKeys"
-              },
-              {
-                "label": "Value",
-                "name": "value",
-                "type": "string",
-                "acceptVariable": true,
-                "acceptNodeOutputAsVariable": true
-              }
-            ],
-            "id": "llmAgentflow_0-input-llmUpdateState-array",
-            "display": true
-          }
-        ],
-        "inputAnchors": [],
-        "inputs": {
-          "llmModel": "groqChat",
-          "llmMessages": [
-            {
-              "role": "system",
-              "content": "<p>You are a loan risk assessment assistant.</p><p>Please choose one of the following options:</p><p>1 - Retrieve customer information (ID and name required)</p><p>2 - Check customer loan risk (ID and name required)</p><p>3 - General loan-related questions</p><p>Reply format:</p><p>- Option 1 or 2: &lt;option&gt; - &lt;customer_id&gt;, &lt;customer_name&gt;</p><p>- Option 3: 3</p><p>Do not include extra text.</p><p></p>"
-            }
-          ],
-          "llmEnableMemory": true,
-          "llmMemoryType": "allMessages",
-          "llmUserMessage": "",
-          "llmReturnResponseAs": "userMessage",
-          "llmStructuredOutput": "",
-          "llmUpdateState": "",
-          "llmModelConfig": {
-            "cache": "",
-            "modelName": "openai/gpt-oss-20b",
-            "temperature": "0.1",
-            "maxTokens": "",
-            "streaming": true,
-            "llmModel": "groqChat"
-          }
-        },
-        "outputAnchors": [
-          {
-            "id": "llmAgentflow_0-output-llmAgentflow",
-            "label": "LLM",
-            "name": "llmAgentflow"
-          }
-        ],
-        "outputs": {},
-        "selected": false
-      },
-      "type": "agentFlow",
-      "width": 218,
-      "height": 72,
-      "selected": false,
-      "dragging": false,
-      "positionAbsolute": {
-        "x": -875.4587247645244,
-        "y": 44.717918493542754
-      }
-    },
-    {
       "id": "llmAgentflow_1",
       "position": {
-        "x": -618.0147880507077,
-        "y": 42.07890267199696
+        "x": -642.1550782232207,
+        "y": 26.6914376607763
       },
       "data": {
         "id": "llmAgentflow_1",
@@ -2908,17 +2562,17 @@
         ],
         "inputAnchors": [],
         "inputs": {
-          "llmModel": "groqChat",
+          "llmModel": "chatMistralAI",
           "llmMessages": [
             {
               "role": "system",
-              "content": "<p>Extract the user's chosen option and customer details from their input.</p><p>Rules:</p><p>- If the user input is \"1 - &lt;id&gt;, &lt;name&gt;\", set option=1</p><p>- If the user input is \"2 - &lt;id&gt;, &lt;name&gt;\", set option=2</p><p>- If the user input is \"3\", set option=3</p><p>- If option 1 or 2 is chosen but ID or name is missing, set missing_info=true</p><p>- If option 3 is chosen, no ID/name is required</p><p>- Return JSON only</p><p>Output format:</p><p>{</p><p>  \"option\": 1 | 2 | 3,</p><p>  \"id\": \"string or empty\",</p><p>  \"name\": \"string or empty\",</p><p>  \"missing_info\": true or false</p><p>}</p><p></p>"
+              "content": "<p>You are a loan risk assessment assistant.</p><p>Extract the user's chosen option from their input.</p><p>Rules:</p><p>- If the user input is \"1 - &lt;id&gt;, &lt;name&gt;\", set option=1</p><p>- If the user input is \"2 - &lt;id&gt;, &lt;name&gt;\", set option=2</p><p>- If the user input is \"3\", set option=3</p><p>- Return JSON only</p><p>Output format:</p><p>{</p><p>\"option\": 1 or 2 or 3</p><p>}</p><p></p>"
             }
           ],
           "llmEnableMemory": true,
           "llmMemoryType": "allMessages",
-          "llmUserMessage": "<p></p>",
-          "llmReturnResponseAs": "userMessage",
+          "llmUserMessage": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"input\" data-label=\"input\">{{ input }}</span></p>",
+          "llmReturnResponseAs": "assistantMessage",
           "llmStructuredOutput": [
             {
               "key": "option",
@@ -2926,55 +2580,27 @@
               "enumValues": "1,2,3",
               "jsonSchema": "",
               "description": "option"
-            },
-            {
-              "key": "id",
-              "type": "string",
-              "enumValues": "",
-              "jsonSchema": "",
-              "description": "customer id"
-            },
-            {
-              "key": "name",
-              "type": "string",
-              "enumValues": "",
-              "jsonSchema": "",
-              "description": "customer name"
-            },
-            {
-              "key": "missing_info",
-              "type": "boolean",
-              "enumValues": "",
-              "jsonSchema": "",
-              "description": "missing info"
             }
           ],
           "llmUpdateState": [
             {
               "key": "option",
               "value": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"output.option\" data-label=\"output.option\">{{ output.option }}</span> </p>"
-            },
-            {
-              "key": "id",
-              "value": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"output.id\" data-label=\"output.id\">{{ output.id }}</span> </p>"
-            },
-            {
-              "key": "name",
-              "value": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"output.name\" data-label=\"output.name\">{{ output.name }}</span> </p>"
-            },
-            {
-              "key": "missing_info",
-              "value": "<p><span class=\"variable\" data-type=\"mention\" data-id=\"output.missing_info\" data-label=\"output.missing_info\">{{ output.missing_info }}</span> </p>"
             }
           ],
           "llmModelConfig": {
-            "cache": "",
-            "modelName": "openai/gpt-oss-20b",
+            "credential": "",
+            "modelName": "mistral-small",
             "temperature": "0.1",
-            "maxTokens": "",
             "streaming": true,
-            "llmModel": "groqChat"
-          }
+            "maxOutputTokens": "",
+            "topP": "",
+            "randomSeed": "",
+            "safeMode": "",
+            "overrideEndpoint": "",
+            "llmModel": "chatMistralAI"
+          },
+          "undefined": ""
         },
         "outputAnchors": [
           {
@@ -2987,13 +2613,13 @@
         "selected": false
       },
       "type": "agentFlow",
-      "width": 218,
+      "width": 196,
       "height": 72,
       "selected": false,
       "dragging": false,
       "positionAbsolute": {
-        "x": -618.0147880507077,
-        "y": 42.07890267199696
+        "x": -642.1550782232207,
+        "y": 26.6914376607763
       }
     },
     {
@@ -3733,7 +3359,7 @@
           "agentMessages": [
             {
               "role": "system",
-              "content": "<p>You are Agent - Retrieve Customer Info. </p><p>Your task is to retrieve a customer's information by calling the custom tools.</p><p>You MUST call these tools:</p><p>1. CreditScoreTool – returns credit_score</p><p>2. AccountStatusTool – returns account_status and nationality</p><p>After receiving all tool results:</p><p>- Combine id and name from user input</p><p>- Combine credit score, account status, nationality</p><p>- Return in JSON:</p><p>{</p><p>\"customer information\": {\"&lt;id&gt;\", \"&lt;name&gt;\", \"&lt;email&gt;\" }</p><p>\"credit score\": &lt;credit_score&gt;,</p><p>\"account status\": \"&lt;account_status&gt;\",</p><p>\"nationality\": \"&lt;nationality&gt;\"</p><p>}</p><p>Do NOT assume or hallucinate values.</p><p>Do NOT generate explanations.</p><p>Only return JSON.</p>"
+              "content": "<p>You are Agent - Retrieve Customer Info.</p><p>Your task is to retrieve a customer's information by calling the custom tools.</p><p>You MUST call these tools:</p><p>1. CreditScoreTool – returns credit_score</p><p>2. AccountStatusTool – returns account_status and nationality</p><p>Instructions:</p><p>1. Compile all information into a JSON report.</p><p>2. Do NOT guess or hallucinate missing data. If any value is missing, set it to \"NA\".</p><p>3. Output ONLY valid JSON. No extra text or explanation.</p><p>Required JSON format:</p><p>{</p><p>\"customer information\": {</p><p>\"id\": \"&lt;id&gt;\",</p><p>\"name\": \"&lt;name&gt;\",</p><p>\"email\": \"&lt;email&gt;\"</p><p>},</p><p>\"credit score\": \"&lt;credit_score&gt;\",</p><p>\"account status\": \"&lt;account_status&gt;\",</p><p>\"nationality\": \"&lt;nationality&gt;\"</p><p>}</p><p></p>"
             }
           ],
           "agentTools": [
@@ -3768,7 +3394,7 @@
           "agentKnowledgeVSEmbeddings": "",
           "agentEnableMemory": true,
           "agentMemoryType": "allMessages",
-          "agentUserMessage": "<p>{</p><p>\"customer information\": {\"&lt;id&gt;\", \"&lt;name&gt;\", \"&lt;email&gt;\" }</p><p>\"credit score\": &lt;credit_score&gt;,</p><p>\"account status\": \"&lt;account_status&gt;\",</p><p>\"nationality\": \"&lt;nationality&gt;\"</p><p>}</p>",
+          "agentUserMessage": "<p></p>",
           "agentReturnResponseAs": "assistantMessage",
           "agentStructuredOutput": "",
           "agentUpdateState": "",
@@ -4879,32 +4505,6 @@
       "id": "conditionAgentflow_0-conditionAgentflow_0-output-0-agentAgentflow_1-agentAgentflow_1"
     },
     {
-      "source": "startAgentflow_0",
-      "sourceHandle": "startAgentflow_0-output-startAgentflow",
-      "target": "llmAgentflow_0",
-      "targetHandle": "llmAgentflow_0",
-      "data": {
-        "sourceColor": "#7EE787",
-        "targetColor": "#64B5F6",
-        "isHumanInput": false
-      },
-      "type": "agentFlow",
-      "id": "startAgentflow_0-startAgentflow_0-output-startAgentflow-llmAgentflow_0-llmAgentflow_0"
-    },
-    {
-      "source": "llmAgentflow_0",
-      "sourceHandle": "llmAgentflow_0-output-llmAgentflow",
-      "target": "llmAgentflow_1",
-      "targetHandle": "llmAgentflow_1",
-      "data": {
-        "sourceColor": "#64B5F6",
-        "targetColor": "#64B5F6",
-        "isHumanInput": false
-      },
-      "type": "agentFlow",
-      "id": "llmAgentflow_0-llmAgentflow_0-output-llmAgentflow-llmAgentflow_1-llmAgentflow_1"
-    },
-    {
       "source": "llmAgentflow_1",
       "sourceHandle": "llmAgentflow_1-output-llmAgentflow",
       "target": "conditionAgentflow_2",
@@ -5013,6 +4613,19 @@
       },
       "type": "agentFlow",
       "id": "conditionAgentflow_2-conditionAgentflow_2-output-1-agentAgentflow_4-agentAgentflow_4"
+    },
+    {
+      "source": "startAgentflow_0",
+      "sourceHandle": "startAgentflow_0-output-startAgentflow",
+      "target": "llmAgentflow_1",
+      "targetHandle": "llmAgentflow_1",
+      "data": {
+        "sourceColor": "#7EE787",
+        "targetColor": "#64B5F6",
+        "isHumanInput": false
+      },
+      "type": "agentFlow",
+      "id": "startAgentflow_0-startAgentflow_0-output-startAgentflow-llmAgentflow_1-llmAgentflow_1"
     }
   ]
 }
