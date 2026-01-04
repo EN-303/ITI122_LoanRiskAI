@@ -92,8 +92,8 @@ if "messages" not in st.session_state:
             "content": (
                 "Hi, I am Bot, your Loan Risk Assessment Assistant.\n\n"
                 "Please choose one of the following options:\n\n"
-                "1 - Retrieve customer information (ID and name required)\n"
-                "2 - Check customer loan risk (ID and name required)\n"
+                "1 - Retrieve customer information (ID and name required)\n\n"
+                "2 - Check customer loan risk (ID and name required)\n\n"
                 "3 - General loan-related questions\n\n"
                 "Reply format:\n"
                 "- Option 1 or 2: <option> - <customer_id>, <customer_name>\n"
