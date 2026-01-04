@@ -147,7 +147,7 @@ if user_input:
         except ValueError:
             result_text = response.text
         else:
-            st.code(data) #debug
+            #st.code(data) #debug
 
              # Structured loan JSON
             if isinstance(data, dict) and "text" in data:
