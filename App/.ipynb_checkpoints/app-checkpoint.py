@@ -4,7 +4,7 @@ import json
 import os
 
 st.set_page_config(
-    page_title="Loan Risk Assessment 5",
+    page_title="Loan Risk Assessment",
     page_icon="💼"
 )
 
@@ -45,7 +45,7 @@ def format_loan_response(data: dict) -> str:
 """
         )
 
-    st.code("ok1") #debug
+    # st.code("ok1") #debug
     
     # --- Credit / Status Block ---
     credit_fields = [
@@ -63,7 +63,7 @@ def format_loan_response(data: dict) -> str:
     if credit_lines:
         sections.append("\n".join(credit_lines) + "\n")
 
-    st.code("ok2") #debug
+    # st.code("ok2") #debug
     
     # --- Risk Summary ---
     if "overall risk" in data:
@@ -158,20 +158,20 @@ if user_input:
             if isinstance(data, dict) and "text" in data:
                 raw_text = data["text"]
                 
-                st.code("print raw_text") #debug
-                st.code(raw_text) #debug
+                # st.code("print raw_text") #debug
+                # st.code(raw_text) #debug
                 
                 # Try to parse text as JSON
                 try:
                     parsed = json.loads(raw_text)
                     if "customer information" in parsed:
-                        st.code("test 3") #debug
+                        # st.code("test 3") #debug
                         result_text = format_loan_response(parsed)
                     else:
                         # st.code("test 1") #debug
                         result_text = raw_text
                 except json.JSONDecodeError:
-                    st.code("test 2") #debug
+                    # st.code("test 2") #debug
                     result_text = raw_text
             
             elif isinstance(data, dict):
