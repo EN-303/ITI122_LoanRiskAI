@@ -147,7 +147,7 @@ if user_input:
         except ValueError:
             result_text = response.text
         else:
-            dt.code("print data") #debug
+            st.code("print data") #debug
             st.code(data) #debug
 
              # Structured loan JSON
