@@ -153,8 +153,9 @@ if user_input:
         except ValueError:
             result_text = response.text
         else:
-            # st.code("print data") #debug
-            # st.code(data) #debug
+            if DEBUG:
+                st.write("### Debug: data") #debug
+                st.code(data) #debug
 
              # Structured loan JSON
             if isinstance(data, dict) and "text" in data:
@@ -168,13 +169,14 @@ if user_input:
                 try:
                     parsed = json.loads(raw_text)
                     if "customer information" in parsed:
-                        # st.code("test 3") #debug
+                        if DEBUG:
+                            st.write("### Debug: parsed")
                         result_text = format_loan_response(parsed)
                     else:
-                        # st.code("test 1") #debug
                         result_text = raw_text
                 except json.JSONDecodeError:
-                    # st.code("test 2") #debug
+                    if DEBUG:
+                        st.write("### Debug: json err")
                     result_text = raw_text
             
             elif isinstance(data, dict):
