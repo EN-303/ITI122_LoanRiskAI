@@ -116,7 +116,7 @@ if "messages" not in st.session_state:
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
-DEBUG = True
+DEBUG = False
 
 # --- User input ---
 user_input = st.chat_input("Type your question here...")
