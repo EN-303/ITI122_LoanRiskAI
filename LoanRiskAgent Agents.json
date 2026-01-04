@@ -662,7 +662,7 @@
           "agentMessages": [
             {
               "role": "system",
-              "content": "<p>You collect customer identification details from user input.</p><p>Your task:</p><p>- Extract the customer ID and name <strong>after the \"-\"</strong> in the input.</p><p>- Only extract values if they are explicitly provided.</p><p>- Do NOT guess or infer missing values.</p><p>Rules:</p><p>- Customer ID may be numeric or string (e.g. \"1111\").</p><p>- Customer name must be the person's actual name.</p><p>- If either ID or name is missing, set \"missing_info\" to true.</p><p>- If both ID and name are present, set \"missing_info\" to false.</p><p>Output requirements:</p><p>- Return <strong>valid JSON only</strong>.</p><p>- Include <strong>all keys</strong> exactly as below, even if values are empty strings.</p><p>- Do not include explanations, text, or comments outside the JSON.</p><p>Output format:</p><p>{</p><p>  \"missing_info\": true or false,</p><p>  \"id\": \"string or empty string\",</p><p>  \"name\": \"string or empty string\"</p><p>}</p><p></p>"
+              "content": "<p>You collect customer identification details from user input.</p><p>Your task:</p><p>- Extract the customer ID and name after the \"-\" in the input.</p><p>- The user may input either:</p><p>    1. \"1 - &lt;id&gt; &lt;name&gt;\"  (space-separated after dash)</p><p>    2. \"1 - &lt;id&gt;, &lt;name&gt;\" (comma-separated after dash)</p><p>- Only extract values if they are explicitly provided.</p><p>- Do NOT guess or infer missing values.</p><p>Rules:</p><p>- Customer ID may be numeric or string (e.g. \"1111\").</p><p>- Customer name must be the person's actual name.</p><p>- If either ID or name is missing, set \"missing_info\" to true.</p><p>- If both ID and name are present, set \"missing_info\" to false.</p><p>Output requirements:</p><p>- Return valid JSON only.</p><p>- Include all keys exactly as below, even if values are empty strings.</p><p>- Do not include explanations, text, or comments outside the JSON.</p><p>Output format:</p><p>{</p><p>  \"missing_info\": true or false,</p><p>  \"id\": \"string or empty string\",</p><p>  \"name\": \"string or empty string\"</p><p>}</p><p></p>"
             }
           ],
           "agentTools": "",
@@ -1781,7 +1781,7 @@
     {
       "id": "agentAgentflow_4",
       "position": {
-        "x": -124.39569848004317,
+        "x": -111.65159060748032,
         "y": 104.2700289019526
       },
       "data": {
@@ -2283,7 +2283,7 @@
       "selected": false,
       "dragging": false,
       "positionAbsolute": {
-        "x": -124.39569848004317,
+        "x": -111.65159060748032,
         "y": 104.2700289019526
       }
     },
@@ -2625,8 +2625,8 @@
     {
       "id": "conditionAgentflow_2",
       "position": {
-        "x": -352.18362930275015,
-        "y": 23.605791921176518
+        "x": -374.4858180797351,
+        "y": 22.012778437106164
       },
       "data": {
         "id": "conditionAgentflow_2",
@@ -2899,8 +2899,8 @@
       "selected": false,
       "dragging": false,
       "positionAbsolute": {
-        "x": -352.18362930275015,
-        "y": 23.605791921176518
+        "x": -374.4858180797351,
+        "y": 22.012778437106164
       }
     },
     {
@@ -3892,7 +3892,7 @@
               "agentSelectedTool": "customTool",
               "agentSelectedToolRequiresHumanInput": "",
               "agentSelectedToolConfig": {
-                "selectedTool": "01eb8035-7f26-4b3d-82fc-1e3d24643365",
+                "selectedTool": "213ebc1a-bee8-4ed1-b2ef-03f57e734e12",
                 "returnDirect": "",
                 "customToolName": "",
                 "customToolDesc": "",
@@ -3905,7 +3905,7 @@
               "agentSelectedTool": "customTool",
               "agentSelectedToolRequiresHumanInput": "",
               "agentSelectedToolConfig": {
-                "selectedTool": "1381c3e9-1094-43da-90a4-c41d51e1afd7",
+                "selectedTool": "90e20bb1-9dd1-438e-97dd-e0ab0b19ceef",
                 "returnDirect": "",
                 "customToolName": "",
                 "customToolDesc": "",
@@ -3918,7 +3918,7 @@
               "agentSelectedTool": "customTool",
               "agentSelectedToolRequiresHumanInput": "",
               "agentSelectedToolConfig": {
-                "selectedTool": "aceb6435-f29a-483a-9199-130187cf5e99",
+                "selectedTool": "5cd6b955-f238-42fd-8cfb-3c3aae1784b2",
                 "returnDirect": "",
                 "customToolName": "",
                 "customToolDesc": "",
@@ -3930,12 +3930,12 @@
           ],
           "agentKnowledgeDocumentStores": [
             {
-              "documentStore": "bf9de051-8e49-4c72-b795-61c5de7f0775:BankRiskPolicy",
+              "documentStore": "e8790346-0ea0-4a37-bfea-8569e01ca8e4:Bank Loan Overall Risk Policy",
               "docStoreDescription": "Overall risk based on credit score and account status",
               "returnSourceDocuments": ""
             },
             {
-              "documentStore": "72bdd852-a8eb-4d88-87c0-bc29e8afaf5e:BankLoanInterestRate",
+              "documentStore": "702f273d-b37c-47e3-82de-8c89817cc14d:Bank Loan Interest Rate Policy",
               "docStoreDescription": "Interest rate based on overall risk",
               "returnSourceDocuments": ""
             }
