@@ -4,7 +4,7 @@ import json
 import os
 
 st.set_page_config(
-    page_title="Loan Risk Assessment 4",
+    page_title="Loan Risk Assessment 5",
     page_icon="💼"
 )
 
@@ -147,7 +147,8 @@ if user_input:
         except ValueError:
             result_text = response.text
         else:
-            #st.code(data) #debug
+            dt.code("print data") #debug
+            st.code(data) #debug
 
              # Structured loan JSON
             if isinstance(data, dict) and "text" in data:
