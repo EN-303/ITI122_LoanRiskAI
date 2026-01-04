@@ -165,7 +165,10 @@ if user_input:
 
                 if raw_text.startswith("```"):
                     raw_text = raw_text.split("```")[1]
-                
+
+                if raw_text.lower().startswith("json"):
+                    raw_text = raw_text[4:].strip()
+    
                 if DEBUG:
                     st.write("### Debug: raw_text")
                     st.code(raw_text)
