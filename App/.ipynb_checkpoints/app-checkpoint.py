@@ -126,7 +126,7 @@ if user_input:
 
     # st.json(payload) #debug
     
-    with st.spinner("Analyzing loan risk..."):
+    with st.spinner("Processing request..."):
         response = requests.post(
             FLOWISE_API_URL,
             json=payload,
