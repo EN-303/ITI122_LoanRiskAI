@@ -138,7 +138,7 @@ if user_input:
         response = requests.post(
             FLOWISE_API_URL,
             json=payload,
-            timeout=30
+            timeout=60
         )
 
         if response.status_code != 200:
