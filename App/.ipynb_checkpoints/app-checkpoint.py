@@ -116,6 +116,8 @@ if "messages" not in st.session_state:
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
+DEBUG = True
+
 # --- User input ---
 user_input = st.chat_input("Type your question here...")
 
@@ -158,8 +160,9 @@ if user_input:
             if isinstance(data, dict) and "text" in data:
                 raw_text = data["text"]
                 
-                # st.code("print raw_text") #debug
-                # st.code(raw_text) #debug
+                if DEBUG:
+                    st.write("### Debug: raw_text")
+                    st.code(raw_text)
                 
                 # Try to parse text as JSON
                 try:
