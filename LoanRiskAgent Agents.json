@@ -4310,7 +4310,7 @@
             },
             {
               "documentStore": "72bdd852-a8eb-4d88-87c0-bc29e8afaf5e:BankLoanInterestRate",
-              "docStoreDescription": "Interest risk based on overall risk",
+              "docStoreDescription": "Interest rate based on overall risk",
               "returnSourceDocuments": ""
             }
           ],
