@@ -95,10 +95,10 @@ if "messages" not in st.session_state:
                 "1 - Retrieve customer information (ID and name required)\n\n"
                 "2 - Check customer loan risk (ID and name required)\n\n"
                 "3 - General loan-related questions\n\n"
-                "Reply format:\n"
+                "Reply format:\n\n"
                 "1 - <customer_id>, <customer_name>\n\n"
                 "3 - <question>\n\n"
-                "Examples:\n"
+                "Examples:\n\n"
                 "1 - 1111, Joe\n\n"
                 "3 - What are the different risk levels?"
             )
@@ -157,6 +157,7 @@ if user_input:
                 try:
                     parsed = json.loads(raw_text)
                     if "customer information" in parsed:
+                        st.code(data) #debug
                         result_text = format_loan_response(parsed)
                     else:
                         result_text = raw_text
@@ -174,4 +175,4 @@ if user_input:
         {"role": "assistant", "content": result_text}
     )
     st.chat_message("assistant").markdown(result_text)
-    st.stop()
+    #st.stop()
