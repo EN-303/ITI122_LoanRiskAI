@@ -45,6 +45,8 @@ def format_loan_response(data: dict) -> str:
 """
         )
 
+    st.code("ok1") #debug
+    
     # --- Credit / Status Block ---
     credit_fields = [
         ("Credit Score", "credit score"),
@@ -61,6 +63,8 @@ def format_loan_response(data: dict) -> str:
     if credit_lines:
         sections.append("\n".join(credit_lines) + "\n")
 
+    st.code("ok2") #debug
+    
     # --- Risk Summary ---
     if "overall risk" in data:
         sections.append("### 🧾 Loan Risk Assessment Report\n")
@@ -147,13 +151,16 @@ if user_input:
         except ValueError:
             result_text = response.text
         else:
-            st.code("print data") #debug
-            st.code(data) #debug
+            # st.code("print data") #debug
+            # st.code(data) #debug
 
              # Structured loan JSON
             if isinstance(data, dict) and "text" in data:
                 raw_text = data["text"]
-            
+                
+                st.code("print raw_text") #debug
+                st.code(raw_text) #debug
+                
                 # Try to parse text as JSON
                 try:
                     parsed = json.loads(raw_text)
@@ -161,7 +168,7 @@ if user_input:
                         st.code("test 3") #debug
                         result_text = format_loan_response(parsed)
                     else:
-                        st.code("test 1") #debug
+                        # st.code("test 1") #debug
                         result_text = raw_text
                 except json.JSONDecodeError:
                     st.code("test 2") #debug
